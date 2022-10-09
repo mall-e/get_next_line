@@ -1,7 +1,4 @@
-#include <unistd.h>
-#include <stdio.h>
-#include <dirent.h>
-#include <string.h>
+#include "prolab.h"
 
 int	main(void)
 {
@@ -16,21 +13,25 @@ int	main(void)
 		return (write(1, "Error\n", 6));
 	else
 		printf("current working directory: %s\n", cwd);
-	dir = opendir(strcat(cwd, "/Üniversite/"));
+	chdir(strcat(cwd, "/Üniversite/"));
+	dir = opendir(".");
 	while ((s_dir = readdir(dir))!= NULL)
 	{
 		if (!strcmp(s_dir->d_name, ".") || !strcmp(s_dir->d_name, "..") || s_dir->d_type == 8)
 			continue;
-		printf("d_name: %s\n", s_dir->d_name);
+		//printf("içerdeki cwd : %s\n", cwd);
 		dir2 = opendir(strcat(cwd, s_dir->d_name));
+		printf("d_name: %s\n", s_dir->d_name);
+		//printf("degisen: %s\n", cwd);
 		while ((sdir2 = readdir(dir2)) != NULL)
 		{
-			if (!strcmp(s_dir->d_name, ".") || !strcmp(s_dir->d_name, "..") || s_dir->d_type == 8)
+			if (!strcmp(sdir2->d_name, ".") || !strcmp(sdir2->d_name, "..") || !find_txt(sdir2->d_name))
 				continue;
-			printf("dddddd: %s\n", sdir2->d_name);
+			printf("txt files: %s\n", sdir2->d_name);
 		}
+		getcwd(cwd, sizeof(cwd));
+		chdir(strcat(cwd, "/"));
 		closedir(dir2);
 	}
-
 	return (0);
 }
