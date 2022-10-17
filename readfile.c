@@ -1,3 +1,46 @@
+#include "prolab.h"
+
+void	definitions(prolab *pro)
+{
+	char	cwd[256];
+
+	pro->cwd = getcwd(cwd, sizeof(cwd));
+	printf("procwd: %s\n", pro->cwd);
+}
+
+char	*dlt_ext(char *txtfile)
+{
+	int	i;
+	int	len;
+	char *str;
+
+	len = 0;
+	i = 0;
+	len = strlen(txtfile);
+	str = malloc(sizeof(char) * (len - 3));
+	while (txtfile[i] != '.')
+	{
+		str[i] = txtfile[i];
+		i++;
+	}
+	str[i] = '\0';
+	//printf("dlt_ext: %s\n", str);
+	return (str);
+}
+
+int	mcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && (s1[i] != '\0' || s2[i] != '\0') && (s1[i] != '\n' || s2[i] != '\n'))
+	{
+		i++;
+	}
+	printf("s1 - s2 = %d\n s1: %d, s2: %d\n", s1[i]-s2[i], s1[i],s2[i]);
+	return (s1[i] - s2[i]);
+}
+
 // #include <unistd.h>
 // #include <stdio.h>
 // #include <dirent.h>
