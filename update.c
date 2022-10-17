@@ -12,7 +12,11 @@ void	update_label()
 	DIR *dir;
 	DIR *dir2;
 	char	uword[20];
+	int	ytm_control;
+	int len;
 
+	ytm_control = 0;
+	len = 0;
 	printf("Güncellenecek etiketi giriniz: \n");
 	fflush(stdin);
 	scanf("%[^\n]s", uword);
@@ -43,15 +47,12 @@ void	update_label()
 			{
 				if (txtcmp(uword, sdir2->d_name))
 				{
-				}
-				if (wordcmp(uword, row, sdir2->d_name) == 1)
-				{
-					printf("Aha buldum \n%s isimli dosyada %d satırda aradığınız kelime bulunmakta\n", sdir2->d_name, i);
-					//usleep(2000000);
+					ytm_control++;
 				}
 				if (wordcmp(uword, row, sdir2->d_name) == 2)
 				{
 					printf("Aha buldum \n%s isimli dosyada %d satırda aradığınız etiket bulunmakta\n", sdir2->d_name, i);
+					printf("file: %s length : %d\n",sdir2->d_name,file_lenght(fd, &len, row));
 					//usleep(2000000);
 				}
 				else if (wordcmp(uword, row, sdir2->d_name) == 3)
